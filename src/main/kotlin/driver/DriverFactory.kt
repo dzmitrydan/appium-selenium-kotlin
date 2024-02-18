@@ -8,32 +8,40 @@ import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.firefox.FirefoxOptions
 
 object DriverFactory {
+    private var driver: WebDriver? = null
+
     val browser: WebDriver?
         get() {
-            //val driverType = "chrome"
-            val driverType = "firefox"
-            //val driverHeadless = true
-            val driverHeadless = false
+            if (driver == null) {
+                val driverType = "firefox"
+                val driverHeadless = false
 
-            val driver: WebDriver? = when (driverType) {
-                "chrome" -> {
-                    var options = ChromeOptions()
-                    options.setHeadless(driverHeadless)
-                    WebDriverManager.chromedriver().setup()
-                    ChromeDriver(options)
+                driver = when (driverType) {
+                    "chrome" -> {
+                        val options = ChromeOptions()
+                        options.setHeadless(driverHeadless)
+                        WebDriverManager.chromedriver().setup()
+                        ChromeDriver(options)
+                    }
+
+                    "firefox" -> {
+                        val options = FirefoxOptions()
+                        options.setHeadless(driverHeadless)
+                        WebDriverManager.firefoxdriver().setup()
+                        FirefoxDriver(options)
+                    }
+
+                    else -> null
                 }
 
-                "firefox" -> {
-                    var options = FirefoxOptions()
-                    options.setHeadless(driverHeadless)
-                    WebDriverManager.firefoxdriver().setup()
-                    FirefoxDriver(options)
-                }
-
-                else -> null
+                driver?.manage()?.window()?.maximize()
             }
 
-            driver?.manage()?.window()?.maximize()
             return driver
         }
+
+    fun quitDriver() {
+        driver?.quit()
+        driver = null
+    }
 }

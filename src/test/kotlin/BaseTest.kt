@@ -13,6 +13,6 @@ abstract class BaseTest {
 
     @AfterTest
     fun tearDown() {
-        driver!!.quit()
+        DriverFactory.quitDriver()
     }
 }
