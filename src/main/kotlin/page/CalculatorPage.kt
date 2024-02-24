@@ -1,4 +1,4 @@
-package org.example.page
+package page
 
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy
 import org.openqa.selenium.support.PageFactory
 import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.support.ui.WebDriverWait
+import java.time.Duration
 
 class CalculatorPage(driver: WebDriver) {
 
@@ -23,7 +24,8 @@ class CalculatorPage(driver: WebDriver) {
 
     init {
         this.driver = driver
-        weit = WebDriverWait(driver, 10)
+        //weit = WebDriverWait(driver, 10)
+        weit = WebDriverWait(driver, Duration.ofSeconds(10))
         PageFactory.initElements(driver, this)
     }
 
