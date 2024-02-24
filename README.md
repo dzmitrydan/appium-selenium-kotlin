@@ -1,23 +1,26 @@
-# Selenium Kotlin Gradle project
+# Appium Selenium Kotlin Gradle Simple project
 ## Description
+- Appium
 - Selenium
 - Kotlin
 - Gradle
 - TestNG
 
-#### Test launch options:
-- Browser (comment in the file:  src/main/kotlin/driver/DriverFactory.kt)
+#### Tests:
+- WEB (Selenium)
     - Google Chrome
-    - Firefox
-- Browser mode (comment in the file:  src/main/kotlin/driver/DriverFactory.kt)
-    - Headless
-    - Not headless
+- Mobile (Appium + Selenium)
+    - Android
 
-#### Run tests
+#### Run web tests 
 ```
-./gradlew clean test -PsimpleTest
+./gradlew clean test -PwebTest
 ```
-
+#### Run mobile tests
+```
+./gradlew clean test -PmobileTest
+```
+#### Run all tests
 ```
 ./gradlew clean test
 ```
