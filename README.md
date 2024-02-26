@@ -1,4 +1,4 @@
-# Appium/Selenium Kotlin simple project
+# Appium / Selenium Kotlin simple project
 ## Description
 - Appium
 - Selenium
