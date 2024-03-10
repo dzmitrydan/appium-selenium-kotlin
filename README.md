@@ -11,6 +11,7 @@
     - Google Chrome
 - Mobile (Appium + Selenium)
     - Android
+    - Precondition: The app is installed on the mobile device
 
 #### Run web tests 
 ```

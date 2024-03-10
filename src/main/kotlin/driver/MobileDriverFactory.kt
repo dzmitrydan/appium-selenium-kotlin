@@ -24,7 +24,6 @@ object MobileDriverFactory {
         capabilities.setCapability("deviceName", "Pixel_5_API_33")
         capabilities.setCapability("appPackage", "org.wikipedia")
         capabilities.setCapability("appActivity", ".main.MainActivity")
-        capabilities.setCapability("app", File("apps/org.wikipedia.apk").absolutePath)
         capabilities.setCapability("udid", "emulator-5554")
         capabilities.setCapability("automationName", "UiAutomator2")
 
