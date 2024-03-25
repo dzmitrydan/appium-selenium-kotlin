@@ -1,25 +1,24 @@
 package mobile
 
 import driver.MobileDriverFactory
-import io.appium.java_client.AppiumDriver
 import org.testng.Assert
 import org.testng.annotations.AfterTest
 import org.testng.annotations.BeforeTest
 import org.testng.annotations.Test
 import screen.MainScreen
+import utils.getCurrentDate
 
 class WikipediaTest {
-    private lateinit var driver: AppiumDriver
 
     @BeforeTest
     fun setUp() {
-        driver = MobileDriverFactory.getDriver()
+        MobileDriverFactory.getDriver()
     }
 
-    @Test()
+    @Test
     fun checkSearchingByWord() {
         val text = "Appium"
-        val mainScreen = MainScreen(driver)
+        val mainScreen = MainScreen()
         val actualTitle = mainScreen
             .clickOnSkipButton()
             .clickOnSearchField()
@@ -28,6 +27,16 @@ class WikipediaTest {
             .getTitle()
 
         Assert.assertEquals(actualTitle, text)
+    }
+
+    @Test
+    fun checkCurrentDateOnThisDayScreen() {
+        val article = "More on this day "
+        val dateFromArticle = MainScreen().clickOnSkipButton()
+            .scrollToArticle(article)
+            .clickMoreOnThisDayLink(article)
+            .getDateFromArticle()
+        Assert.assertEquals(dateFromArticle, getCurrentDate())
     }
 
     @AfterTest

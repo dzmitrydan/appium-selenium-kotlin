@@ -1,23 +1,21 @@
 package screen
 
-import io.appium.java_client.AppiumDriver
-import io.appium.java_client.TouchAction
 import io.appium.java_client.pagefactory.AndroidFindBy
-import io.appium.java_client.touch.offset.PointOption
 import org.openqa.selenium.By
-import org.openqa.selenium.JavascriptExecutor
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.support.ui.ExpectedConditions
-import java.awt.Dimension
+import utils.ScrollDirection
+import utils.scrollVerticalToElement
 
-class MainScreen(driver: AppiumDriver) : AbstractScreen(driver) {
+class MainScreen : AbstractScreen() {
     private val skipButtonXpath = "//*[contains(@text, 'Skip')]"
+    private val articleLink = "//*[@resource-id='org.wikipedia:id/footerActionButton' and contains(@text, '%s')]"
 
     @AndroidFindBy(xpath = "//*[contains(@text, 'Search Wikipedia')]")
     private lateinit var searchField: WebElement
 
-    @AndroidFindBy(id = "voice_search_button")
-    private lateinit var voiceSearchButton: WebElement
+    @AndroidFindBy(id = "org.wikipedia:id/footerActionButton")
+    private lateinit var moreOnThisDayLink  : WebElement
 
     fun clickOnSkipButton(): MainScreen {
         if (isElementVisible(By.xpath(skipButtonXpath))) {
@@ -28,6 +26,16 @@ class MainScreen(driver: AppiumDriver) : AbstractScreen(driver) {
 
     fun clickOnSearchField(): SearchScreen {
         wait.until(ExpectedConditions.visibilityOf(searchField)).click()
-        return SearchScreen(driver)
+        return SearchScreen()
+    }
+
+    fun scrollToArticle(article: String): MainScreen {
+        scrollVerticalToElement(ScrollDirection.DOWN, By.xpath(String.format(articleLink, article)))
+    return this
+    }
+
+    fun clickMoreOnThisDayLink(article: String): OnThisDayScreen {
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(String.format(articleLink, article)))).click()
+        return OnThisDayScreen()
     }
 }
